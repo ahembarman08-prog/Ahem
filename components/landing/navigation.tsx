@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogOut } from "lucide-react";
-import { useAuth } from "@/contexts/auth-context";
-import { GetStartedModal } from "@/components/modals/get-started-modal";
+import { Menu, X } from "lucide-react";
+import { BookingFunnelModal } from "@/components/modals/booking-funnel-modal";
 
 const navLinks = [
   { name: "Services", href: "#services" },
@@ -16,8 +15,7 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showGetStarted, setShowGetStarted] = useState(false);
-  const { isSignedIn, user, signOut } = useAuth();
+  const [showBooking, setShowBooking] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,44 +66,16 @@ export function Navigation() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            {isSignedIn && user ? (
-              <>
-                <div className="flex items-center gap-3 px-4 py-2 bg-accent/10 rounded-full">
-                  {user.picture && (
-                    <img
-                      src={user.picture}
-                      alt={user.name}
-                      className="w-6 h-6 rounded-full"
-                    />
-                  )}
-                  <span className={`text-foreground ${isScrolled ? "text-xs" : "text-sm"}`}>
-                    {user.name}
-                  </span>
-                </div>
-                <Button
-                  size="sm"
-                  onClick={() => signOut()}
-                  variant="outline"
-                  className={`rounded-full transition-all duration-500 gap-2 ${isScrolled ? "px-3 h-8 text-xs" : "px-4"}`}
-                >
-                  <LogOut className="w-4 h-4" />
-                  Sign out
-                </Button>
-              </>
-            ) : (
-              <>
-                <a href="#" className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${isScrolled ? "text-xs" : "text-sm"}`}>
-                  Contact
-                </a>
-                <Button
-                  size="sm"
-                  onClick={() => setShowGetStarted(true)}
-                  className={`gradient-cyan text-background rounded-full transition-all duration-500 hover:opacity-90 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
-                >
-                  Get Started
-                </Button>
-              </>
-            )}
+            <a href="#" className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${isScrolled ? "text-xs" : "text-sm"}`}>
+              Contact
+            </a>
+            <Button
+              size="sm"
+              onClick={() => setShowBooking(true)}
+              className={`gradient-cyan text-background rounded-full transition-all duration-500 hover:opacity-90 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
+            >
+              Book Strategy Call
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -178,9 +148,9 @@ export function Navigation() {
         </div>
       </div>
 
-      <GetStartedModal
-        isOpen={showGetStarted}
-        onClose={() => setShowGetStarted(false)}
+      <BookingFunnelModal
+        isOpen={showBooking}
+        onClose={() => setShowBooking(false)}
       />
     </header>
   );

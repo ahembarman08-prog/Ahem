@@ -2,19 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { AnimatedTetrahedron } from "./animated-tetrahedron";
-import { GetStartedModal } from "@/components/modals/get-started-modal";
-import { DemoBookingModal } from "@/components/modals/demo-booking-modal";
-import { useAuth } from "@/contexts/auth-context";
+import { BookingFunnelModal } from "@/components/modals/booking-funnel-modal";
+import { DemoShowcaseModal } from "@/components/modals/demo-showcase-modal";
 
 export function CtaSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [showGetStarted, setShowGetStarted] = useState(false);
-  const [showDemoBooking, setShowDemoBooking] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { isSignedIn } = useAuth();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,31 +62,26 @@ export function CtaSection() {
                 </h2>
 
                 <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
-                  Start your free 14-day trial today. No credit card. No long-term contracts. Try everything. See real results.
+                  Ready to transform your business? Book a strategy call with our AI experts today and discover your automation opportunities.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start gap-4">
                   <Button
                     size="lg"
-                    onClick={() => setShowGetStarted(true)}
+                    onClick={() => setShowBooking(true)}
                     className="gradient-cyan text-background px-8 h-14 text-base rounded-full group hover:opacity-90"
                   >
-                    Start Free Trial
+                    Book AI Strategy Call
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => {
-                      if (!isSignedIn) {
-                        setShowGetStarted(true);
-                      } else {
-                        setShowDemoBooking(true);
-                      }
-                    }}
+                    onClick={() => setShowDemo(true)}
                     className="h-14 px-8 text-base rounded-full border-accent/30 hover:bg-accent/5"
                   >
-                    Book a quick call
+                    <Play className="w-4 h-4 mr-2" />
+                    View Live Demo
                   </Button>
                 </div>
 
@@ -110,13 +103,13 @@ export function CtaSection() {
         </div>
       </div>
 
-      <GetStartedModal
-        isOpen={showGetStarted}
-        onClose={() => setShowGetStarted(false)}
+      <BookingFunnelModal
+        isOpen={showBooking}
+        onClose={() => setShowBooking(false)}
       />
-      <DemoBookingModal
-        isOpen={showDemoBooking}
-        onClose={() => setShowDemoBooking(false)}
+      <DemoShowcaseModal
+        isOpen={showDemo}
+        onClose={() => setShowDemo(false)}
       />
     </section>
   );

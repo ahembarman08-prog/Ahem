@@ -2,14 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { AnimatedSphere } from "./animated-sphere";
+import { BookingFunnelModal } from "@/components/modals/booking-funnel-modal";
+import { DemoShowcaseModal } from "@/components/modals/demo-showcase-modal";
 
 const words = ["save", "grow", "respond", "book"];
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
+  const [showBooking, setShowBooking] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -119,17 +123,20 @@ export function HeroSection() {
           >
             <Button 
               size="lg" 
+              onClick={() => setShowBooking(true)}
               className="gradient-cyan text-background px-8 h-14 text-base rounded-full group hover:opacity-90"
             >
-              Get Started Free
+              Book AI Strategy Call
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               size="lg" 
+              onClick={() => setShowDemo(true)}
               variant="outline" 
               className="h-14 px-8 text-base rounded-full border-accent/30 hover:bg-accent/5"
             >
-              Schedule Demo
+              <Play className="w-4 h-4 mr-2" />
+              View Live Demo
             </Button>
           </div>
         </div>
@@ -166,6 +173,14 @@ export function HeroSection() {
       
       {/* Scroll indicator */}
       
+      <BookingFunnelModal
+        isOpen={showBooking}
+        onClose={() => setShowBooking(false)}
+      />
+      <DemoShowcaseModal
+        isOpen={showDemo}
+        onClose={() => setShowDemo(false)}
+      />
     </section>
   );
 }
