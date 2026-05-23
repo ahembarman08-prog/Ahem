@@ -1,0 +1,48 @@
+import React from "react"
+import type { Metadata } from 'next'
+import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { AuthProvider } from '@/contexts/auth-context'
+import './globals.css'
+
+const instrumentSans = Instrument_Sans({ 
+  subsets: ["latin"],
+  variable: '--font-instrument'
+});
+
+const instrumentSerif = Instrument_Serif({ 
+  subsets: ["latin"],
+  weight: "400",
+  variable: '--font-instrument-serif'
+});
+
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: '--font-jetbrains'
+});
+
+export const metadata: Metadata = {
+  title: 'Zyphronix - AI Automation Agency',
+  description: 'Transform your business with cutting-edge AI automation. Lead generation, chatbots, workflows, and web development powered by advanced AI.',
+  generator: 'v0.app',
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en" className="bg-background">
+      <body className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </GoogleOAuthProvider>
+        <Analytics />
+      </body>
+    </html>
+  )
+}
