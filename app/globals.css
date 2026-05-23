@@ -103,6 +103,46 @@
     -webkit-text-fill-color: transparent;
   }
   
+  .glass {
+    background: rgba(20, 24, 50, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+  }
+  
+  .glass-dark {
+    background: rgba(10, 14, 39, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 217, 255, 0.05);
+  }
+  
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  }
+  
+  .glow-sm {
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.2);
+  }
+  
+  .glow-lg {
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4), 0 0 80px rgba(124, 58, 237, 0.2);
+  }
+  
+  .gradient-cyan {
+    background: linear-gradient(135deg, #00d9ff 0%, #0ea5e9 100%);
+  }
+  
+  .gradient-purple {
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  }
+  
+  .gradient-mesh {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(124, 58, 237, 0.05) 50%, rgba(0, 217, 255, 0.05) 100%);
+  }
+  
   .marquee {
     animation: marquee 30s linear infinite;
   }
@@ -121,6 +161,19 @@
     100% { transform: translateX(0); }
   }
   
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: scroll-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  
+  @keyframes scroll-reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
   .line-reveal {
     clip-path: inset(0 100% 0 0);
     animation: line-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
@@ -130,12 +183,22 @@
     to { clip-path: inset(0 0 0 0); }
   }
   
+  .float-animation {
+    animation: float-animation 3s ease-in-out infinite;
+  }
+  
+  @keyframes float-animation {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
   .hover-lift {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
   }
   
   .hover-lift:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
   }
   
   .letter-spin {
@@ -165,6 +228,17 @@
       filter: blur(0);
       transform: translateY(0);
     }
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 217, 255, 0.2) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 
   .noise-overlay {
